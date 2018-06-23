@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        基于源码分析Appium服务端启动过程 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium文档"><span class="toc-text">appium文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主体结构"><span class="toc-text">主体结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node的express"><span class="toc-text">node的express</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码目录分析"><span class="toc-text">源码目录分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础类库appium-base-driver"><span class="toc-text">基础类库appium-base-driver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#routeConfiguringFunction"><span class="toc-text">routeConfiguringFunction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#express中的server-js"><span class="toc-text">express中的server.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务启动"><span class="toc-text">服务启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        基于源码分析Appium服务端启动过程
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-01-18 20:37:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Appium" title="Appium">Appium</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><p>本文档主要是通过断点跟踪对于Appium源码，从而记录的Appium服务端的启动过程，如有错误或者理解不当之处，欢迎评论提出。<br>Appium版本：1.7.2 客户端  appium-python-client  2018年1月<br>可以直接看结论，根据结论中的关键js文件即可断点跟踪出全过程。</p>
+<h4 id="appium文档"><a href="#appium文档" class="headerlink" title="appium文档"></a>appium文档</h4><p><a href="https://github.com/appium" target="_blank" rel="noopener">github</a></p>
+<p><a href="http://appium.io/" target="_blank" rel="noopener">官方网站</a></p>
+<h3 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h3><p><img src="http://upload-images.jianshu.io/upload_images/1094385-50476463c0d726b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="官方图片"><br>首先是官方这张图片，这张图片简直涵盖appium所有知识点！而且对于这张图片还有中文的readme！<br><a href="https://github.com/appium/appium/blob/master/docs/cn/contributing-to-appium/appium-packages.md" target="_blank" rel="noopener">中文readme直通车</a><br>图上分类很清晰 基本上以appium为前缀的都被封装成了类库，通过npm加载，在node_modules中如下图所示，其中appium-base-driver为整个服务的基础类库。上图所示的 <code>jsonwp-proxy</code>、<code>mobile-json-wire-protocal</code>等都在里面。<br><img src="http://upload-images.jianshu.io/upload_images/1094385-aba2f76c6e89ea0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="node的express"><a href="#node的express" class="headerlink" title="node的express"></a>node的express</h3><p>appium的服务端采用的是express框架，<a href="http://www.expressjs.com.cn/" target="_blank" rel="noopener">express中文文档</a>，如果之前用express建立过项目的话，会对express中的路由比较熟悉，很多时候路由的处理大概像<a href="http://blog.csdn.net/itfootball/article/details/44707431" target="_blank" rel="noopener">Appium源码分析(3)-路由器模块</a>这样列出来的样子，即通过<code>rest.get(&#39;/wd/hub/status&#39;, controller.getStatus);</code>该种方式可以查看到所有路由的处理，但是到今年18年appium的代码它的路由配置经过了层层调用。</p>
+<p>而且作为node服务之前比较习惯入口的app.js即作为服务开启，但是在appium中它将该入口作为express模块直接放在了<code>appium-base-driver</code>中，也就是说appium源码的main入口并不是服务入口，那么他们之间的关系是一个怎样的继承及调用呢？</p>
+<h3 id="源码目录分析"><a href="#源码目录分析" class="headerlink" title="源码目录分析"></a>源码目录分析</h3><p>假设我们想实现一个与客户端通讯的服务，那么主要包括服务开启、客户端http请求，响应函数，那么在appium中我们将其细化一下，大概是</p>
+<blockquote>
+<p>开启服务-&gt;客户端传来请求-&gt;开启当前测试用例会话-&gt;根据配置确定ios、android等-&gt;分别处理ios或安卓请求-&gt;ios或安卓返回后-&gt;响应客户端吧-&gt;关闭会话。</p>
+</blockquote>
+<p>首先看入口结构：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-3dfc475124e93591.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20180118-194031.png"></p>
+<ul>
+<li>build工程打包后出现的文件 程序执行来源于build中的main.js ,基本是对lib文件夹下通过babel对于代码进行的转换，所以调试的时候建议根据main.js调试</li>
+<li>config.js 配置文件</li>
+<li>logger.js 日志处理</li>
+<li>parser.js 终端命令的处理</li>
+<li>utils.js 基础函数<br>main.js 中除了启动的一些检查，重点代码在于<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; server <span class="keyword">as</span> baseServer &#125; <span class="keyword">from</span> <span class="string">'appium-base-driver'</span>;</span><br><span class="line"><span class="keyword">let</span> router = getAppiumRouter(args);<span class="comment">//该函数来源于appium.js</span></span><br><span class="line">  <span class="comment">//此处router返回的是个函数  用于装填路由路径 该函数执行路径位于/mjsonwp/mjsonwp.js 中routeConfiguringFunction 的返回函数</span></span><br><span class="line">  <span class="comment">//baseServer执行之后服务开始启动</span></span><br><span class="line"><span class="keyword">let</span> server = <span class="keyword">await</span> baseServer(router, args.port, args.address);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这两行代码可nb厉害了……就这两行基本就把基础类库溜了一圈！代码都是几行几行的，然后一调就转一大圈<br>在appium.js中我们找到了以下函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BaseDriver, routeConfiguringFunction, errors,</span><br><span class="line">         isSessionCommand, processCapabilities &#125; <span class="keyword">from</span> <span class="string">'appium-base-driver'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAppiumRouter</span> (<span class="params">args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> appium = <span class="keyword">new</span> AppiumDriver(args);<span class="comment">//实例化的这个类继承了appium-base-driver！</span></span><br><span class="line">  <span class="keyword">return</span> routeConfiguringFunction(appium);<span class="comment">//这个函数来自于appium-base-driver </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由此成功引入基础类库<code>appium-base-driver</code>，然后就去那里翻吧</p>
+<h4 id="基础类库appium-base-driver"><a href="#基础类库appium-base-driver" class="headerlink" title="基础类库appium-base-driver"></a>基础类库appium-base-driver</h4><p><img src="http://upload-images.jianshu.io/upload_images/1094385-7201454a76fa3ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没截全的地方都是配置"><br>画出的几个红框基本就是代码功能分类，其中<code>jsonwp-proxy</code>和<code>mjsonwp</code>是和协议相关，由于我不是很了解，所以不做介绍，只说明其中代码位置。<br>上边提到代码转向<code>routeConfiguringFunction</code></p>
+<h4 id="routeConfiguringFunction"><a href="#routeConfiguringFunction" class="headerlink" title="routeConfiguringFunction"></a>routeConfiguringFunction</h4><p>这出自<code>mjsonwp/mjsonwp.js</code>，<strong>请牢牢的记住这个返回函数！！！</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">routeConfiguringFunction</span> (<span class="params">driver</span>) </span>&#123;</span><br><span class="line"><span class="comment">//...省略一些</span></span><br><span class="line">  <span class="comment">// return a function which will add all the routes to the driver</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">app</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> [path, methods] <span class="keyword">of</span> _.toPairs(METHOD_MAP)) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> [method, spec] <span class="keyword">of</span> _.toPairs(methods)) &#123;</span><br><span class="line">        <span class="comment">// set up the express route handler</span></span><br><span class="line">        buildHandler(app, method, path, spec, driver, isSessionCommand(spec.command));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>它返回了一个函数并且里面还传参了<code>app</code>,之前断点打到这里时满脑子都是<strong>我是谁，我在哪里，我要干什么</strong><br>我们把代码往上看一下<code>routeConfiguringFunction</code>的返回值返回给<code>getAppiumRouter</code>再返回给let router  然后再传给baseServer（怪我不好好学js……看个代码艰辛非常……）<br>那么baseServer来自哪里呢？看import，它来自appium-base-server!<br><strong>main.js中调用了一圈再次进入appium-base-server</strong></p>
+<h4 id="express中的server-js"><a href="#express中的server-js" class="headerlink" title="express中的server.js"></a>express中的server.js</h4><p>之前说到要去找baseServer来自哪里，终于在express/server.js中找到了  就是appium的http服务启动的地方！所以说服务开启的地方不在外部！在基础类库里啊！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">server</span> (<span class="params">configureRoutes, port, hostname = null</span>) </span>&#123;</span><br><span class="line"><span class="comment">//......</span></span><br><span class="line"><span class="comment">//里面有这样的代码</span></span><br><span class="line">configureServer (app, configureRoutes) &#123;</span><br><span class="line"><span class="comment">//然后再该函数中调用了</span></span><br><span class="line">  configureRoutes(app);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以代码走到这里执行的就是那个返回函数，app是express的实例！那么执行这一步是为了做什么呢？这个<code>METHOD_MAP</code>是最大的全路由配置！来自于<code>mjsonwp/routes.js</code>,其中500行都是路由配置，经过该配置有效避免批量写<code>app.get()//balabala</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">app</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> [path, methods] <span class="keyword">of</span> _.toPairs(METHOD_MAP)) &#123;</span><br><span class="line">  <span class="comment">//balabalbala</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>至此全路由配置装填结束！</p>
+<h4 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h4><p>这个就没有什么波折了，既然server.js都找到了，就再这个文件中,看到这里终于看到了熟悉的node启动~<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">let app</span> = express();</span><br><span class="line"><span class="attribute">let httpServer</span> = http.createServer(app);</span><br></pre></td></tr></table></figure></p>
+<p>当断点跟到这里时终端就可以跳出如下输出,服务启动啦~<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Appium] Appium REST http<span class="built_in"> interface </span>listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>启动服务执行过程<br><code>lib/main.js</code> 执行来自于<code>lib/appium.js</code>中的<code>getAppiumRouter</code>函数<br>该函数中实例化<code>AppiumDriver</code>类，同时读取路由配置文件，该类继承于<code>Appium-base-driver</code>库中暴露的基类，路由配置文件来源于<code>Appium-base-driver</code>库中<code>/mjsonwp/routes.js</code>的配置<br>配置文件读取之后在<code>/mjsonwp/mjsonwp.js</code>中以函数的形式返回<code>main.js</code> 执行<code>baseServer</code>函数  该函数来自于<code>Appium-base-driver/express/server.js</code></p>
+<p>也就是说整个过程从</p>
+<blockquote>
+<p>main.js-[调用]-appium.js-[调用]-appium-base-driver/mjsonwp-[返回]-main.js-[调用]-appium-base-driver/express</p>
+</blockquote>
+<p>其实是通过层层调用将路由已配置的方式进行装填并在基础类库<code>appium-base-server</code>中启动</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

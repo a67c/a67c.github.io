@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Appium通过日志分析服务端执行过程-IOS端 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第一部分-启动服务并创建sessionID"><span class="toc-text">第一部分 启动服务并创建sessionID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二部分-发送操作请求执行并返回"><span class="toc-text">第二部分 发送操作请求执行并返回</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Appium通过日志分析服务端执行过程-IOS端
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-02-22 14:49:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Appium" title="Appium">Appium</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><ol>
+<li>本文日志为在IOS模拟器上进行的测试 appium 1.7.2</li>
+<li>在appium服务端中，日志分为log.info和log.debug 一般每个文件夹下面都有logger.js 该js中规定当前log格式。</li>
+<li>info为基础信息，debug可以看做为调试信息。</li>
+<li>本篇为初步分析，后来对日志又进行了更细致的断点查找，待整理，如有错误还请指出</li>
+<li>假如日志前面打印出的[Appium][XUCITES]等，根据该名字可以查到日志来源于哪个文件夹下，[debug][MJSONWP]代表当前是采用log.debug方式打印日志，且日志来源于<code>appium-base-driver/mjsonwp</code>的文件夹</li>
+</ol>
+<h4 id="第一部分-启动服务并创建sessionID"><a href="#第一部分-启动服务并创建sessionID" class="headerlink" title="第一部分 启动服务并创建sessionID"></a>第一部分 启动服务并创建sessionID</h4><p>appium启动：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Appium] Welcome <span class="keyword">to</span> Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http<span class="built_in"> interface </span>listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure></p>
+<p>客户端发送http请求，并传递配置参数<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[HTTP] --&gt; POST /wd/hub/session &#123;<span class="string">"capabilities"</span>:&#123;<span class="string">"alwaysMatch"</span>:&#123;<span class="string">"platformName"</span>:<span class="string">"iOS"</span>&#125;,<span class="string">"firstMatch"</span>:[&#123;&#125;]&#125;,<span class="string">"desiredCapabilities"</span>:&#123;<span class="string">"platformVersion"</span>:<span class="string">"11.2"</span>,<span class="string">"deviceName"</span>:<span class="string">"iPhone 6s"</span>,<span class="string">"app"</span>:<span class="string">"/Users/用户名/Documents/github/python-client-master/appium/TestApp/build/release-iphonesimulator/TestApp-iphonesimulator.app"</span>,<span class="string">"platformName"</span>:<span class="string">"iOS"</span>&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>[MJSONWP]为来自于appium服务端中封装好的类库<code>appium-base-driver</code>中mjsonwp文件夹下的mjsonwp.js，一般用于server端的交互，包括处理HTTP的请求，session会话的创建删除。以下为创建Session<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[debug] [<span class="symbol">MJSONWP</span>] <span class="symbol">Calling</span> <span class="symbol">AppiumDriver</span>.createSession() with args: [&#123;<span class="string">"platformVersion"</span>:<span class="string">"11.2"</span>,<span class="string">"deviceName"</span>:<span class="string">"iPhone 6s"</span>,<span class="string">"app"</span>:<span class="string">"/Users/用户名/Documents/github/python-client-master/appium/TestApp/build/release-iphonesimulator/TestApp-iphonesimulator.app"</span>,<span class="string">"platformName"</span>:<span class="string">"iOS"</span>&#125;,null,&#123;<span class="string">"alwaysMatch"</span>:&#123;<span class="string">"platformName"</span>:<span class="string">"iOS"</span>&#125;,<span class="string">"firstMatch"</span>:[&#123;&#125;]&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>[BaseDriver]日志来源于<code>appium-base-driver/basedriver</code>文件夹。<br>下面日志主要用于打印整个appium中的事件触发，所有的请求都会触发各种类下的<code>executeCommand</code>函数，而这些函数全部继承driver.js中的WebDriver，所以所有的请求都会打印出<code>driver.js</code>中的logHistory。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">debug</span>] [<span class="keyword">BaseDriver] </span>Event <span class="string">'newSessionRequested'</span> logged <span class="built_in">at</span> <span class="number">1516514435268</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">35</span> GMT+<span class="number">0800</span> (CST))</span><br></pre></td></tr></table></figure></p>
+<p>[Appium]日志来源于<code>lib</code>文件夹下<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Appium] Merged W3C capabilities &#123;<span class="string">"alwaysMatch"</span>:&#123;<span class="string">"platformName"</span>:<span class="string">"iOS"</span>&#125;,<span class="string">"firstMat... into desiredCapabilities object &#123;"</span>platformVersion<span class="string">":"</span><span class="number">11.2</span><span class="string">","</span>deviceName<span class="string">":"</span>iPhone ...</span><br><span class="line">[Appium] Requested iOS support with version &gt;= <span class="number">10</span>, using XCUITest driver instead of UIAutomation-based driver, since the latter is unsupported on iOS <span class="number">10</span> and up.</span><br><span class="line">[Appium] Creating <span class="keyword">new</span> XCUITestDriver (v2<span class="number">.64</span><span class="number">.0</span>) session</span><br><span class="line">[Appium] <span class="string">Capabilities:</span></span><br><span class="line">[Appium]   <span class="string">platformVersion:</span> <span class="number">11.2</span></span><br><span class="line">[Appium]   <span class="string">deviceName:</span> iPhone <span class="number">6</span>s</span><br><span class="line">[Appium]   <span class="string">app:</span> <span class="regexp">/Users/</span>用户名<span class="regexp">/Documents/</span>github<span class="regexp">/python-client-master/</span>appium<span class="regexp">/TestApp/</span>build<span class="regexp">/release-iphonesimulator/</span>TestApp-iphonesimulator.app</span><br><span class="line">[Appium]   <span class="string">platformName:</span> iOS</span><br></pre></td></tr></table></figure></p>
+<p>[BaseDriver]打印出当前sessionId创建成功，来源于<code>appium-base-driver/basedriver/session.js</code>文件。</p>
+<ul>
+<li>creatSession跳转过程说明：<br>创建creatSession路线：mjsonwp.js-》appium.js中的createSession-》跳转到XCUITEST中的createSession-》跳转到appium-base-driver/basedriver/driver.js中的creatSession</li>
+<li>如何联系起了XCUITest？<br>通过appium.js中的<code>curSessionDataForDriver(InnerDriver)</code>，当判断出当前是什么系统配置时，InnerDriver此时已变成IOS或者Android的Driver</li>
+</ul>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[BaseDriver] Session created <span class="keyword">with</span> session <span class="attribute">id:</span><span class="string"> 8790f1db</span><span class="number">-9627</span><span class="number">-41</span>ce-a534-bc40159c7194</span><br></pre></td></tr></table></figure>
+<p>当创建SessionID之后，此时进入的是<code>appium-xcuitest-driver</code>类库中。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">debug</span>] [XCUITest] Current user: <span class="string">'用户名'</span></span><br><span class="line">[<span class="keyword">debug</span>] [XCUITest] Current <span class="keyword">version</span> of libimobiledevice: stable <span class="number">1.2</span>.<span class="number">0</span> (bottled), HEAD</span><br><span class="line">[<span class="keyword">debug</span>] [XCUITest] Xcode <span class="keyword">version</span> <span class="keyword">set</span> <span class="keyword">to</span> <span class="string">'9.2'</span> (tools v9.<span class="number">2.0</span>.<span class="number">0.1</span>.<span class="number">1510905681</span>)</span><br><span class="line">[<span class="keyword">debug</span>] [XCUITest] iOS SDK Version <span class="keyword">set</span> <span class="keyword">to</span> <span class="string">'11.2'</span></span><br></pre></td></tr></table></figure></p>
+<p>来自于<code>appium-base-driver/basedriver/driver.js</code>中的logHistory函数<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">debug</span>] [<span class="keyword">BaseDriver] </span>Event <span class="string">'xcodeDetailsRetrieved'</span> logged <span class="built_in">at</span> <span class="number">1516514436354</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">36</span> GMT+<span class="number">0800</span> (CST))</span><br></pre></td></tr></table></figure></p>
+<p>[iOSSim]来自于<code>appium-ios-simulator</code>的日志，接下来都是在IOS检测模拟器，判断APP，安装APP的操作<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[iOSSim] Constructing iOS simulator for Xcode version 9.2 with udid '2EF911A2-CA9C-4D28-96EB-3DBC8DF39FA5'</span><br><span class="line">[XCUITest] Determining device to run tests on: udid: '2EF911A2-CA9C-4D28-96EB-3DBC8DF39FA5', real device: false</span><br><span class="line">[BaseDriver] Using local app '/Users/用户名/Documents/github/python-client-master/appium/TestApp/build/<span class="keyword">release</span>-iphonesimulator/TestApp-iphonesimulator.app<span class="string">'</span></span><br><span class="line"><span class="string">[debug] [BaseDriver] Event '</span>appConfigured<span class="string">' logged at 1516514436692 (14:00:36 GMT+0800 (CST))</span></span><br><span class="line"><span class="string">[debug] [XCUITest] Checking whether app '</span>/<span class="keyword">Users</span>/用户名/Documents/github/python-<span class="keyword">client</span>-<span class="keyword">master</span>/appium/TestApp/<span class="keyword">build</span>/<span class="keyword">release</span>-iphonesimulator/TestApp-iphonesimulator.app<span class="string">' is actually present on file system</span></span><br><span class="line"><span class="string">[debug] [XCUITest] App is present</span></span><br><span class="line"><span class="string">[debug] [iOS] Getting bundle ID from app '</span>/<span class="keyword">Users</span>/用户名/Documents/github/python-<span class="keyword">client</span>-<span class="keyword">master</span>/appium/TestApp/<span class="keyword">build</span>/<span class="keyword">release</span>-iphonesimulator/TestApp-iphonesimulator.app<span class="string">': '</span>io.appium.TestApp<span class="string">'</span></span><br><span class="line"><span class="string">[debug] [BaseDriver] Event '</span>resetStarted<span class="string">' logged at 1516514436695 (14:00:36 GMT+0800 (CST))</span></span><br><span class="line"><span class="string">[XCUITest] Not scrubbing third party app in anticipation of uninstall</span></span><br><span class="line"><span class="string">[debug] [BaseDriver] Event '</span>resetComplete<span class="string">' logged at 1516514436881 (14:00:36 GMT+0800 (CST))</span></span><br><span class="line"><span class="string">[debug] [XCUITest] Starting log capture for iOS Simulator with udid '</span><span class="number">2</span>EF911A2-CA9C<span class="number">-4</span>D28<span class="number">-96</span>EB<span class="number">-3</span>DBC8DF39FA5<span class="string">', using '</span>xcrun simctl spawn <span class="number">2</span>EF911A2-CA9C<span class="number">-4</span>D28<span class="number">-96</span>EB<span class="number">-3</span>DBC8DF39FA5 <span class="keyword">log</span> stream <span class="comment">--style compact'</span></span><br><span class="line">[debug] [BaseDriver] <span class="keyword">Event</span> <span class="string">'logCaptureStarted'</span> logged <span class="keyword">at</span> <span class="number">1516514437312</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">37</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line">[XCUITest] Setting up simulator</span><br><span class="line">[debug] [iOS] <span class="keyword">No</span> reason <span class="keyword">to</span> <span class="keyword">set</span> locale</span><br><span class="line">[debug] [iOS] <span class="keyword">No</span> iOS / app preferences <span class="keyword">to</span> <span class="keyword">set</span></span><br><span class="line">[debug] [iOSSim] <span class="keyword">Matched</span> <span class="number">1</span> Simulator <span class="keyword">cache</span> item <span class="keyword">for</span> <span class="keyword">cleanup</span>: /<span class="keyword">Users</span>/用户名/<span class="keyword">Library</span>/Developer/CoreSimulator/Devices/<span class="number">2</span>EF911A2-CA9C<span class="number">-4</span>D28<span class="number">-96</span>EB<span class="number">-3</span>DBC8DF39FA5/<span class="keyword">data</span>/<span class="keyword">Library</span>/Caches/com.apple.mobile.installd.staging</span><br><span class="line">[debug] [iOSSim] Setting common Simulator preferences <span class="keyword">to</span> &#123;<span class="string">"ConnectHardwareKeyboard"</span>:<span class="literal">false</span>&#125;</span><br><span class="line">[debug] [iOSSim] <span class="keyword">Updated</span> <span class="number">2</span>EF911A2-CA9C<span class="number">-4</span>D28<span class="number">-96</span>EB<span class="number">-3</span>DBC8DF39FA5 Simulator preferences <span class="keyword">at</span> <span class="string">'/Users/用户名/Library/Preferences/com.apple.iphonesimulator.plist'</span> <span class="keyword">with</span> &#123;<span class="string">"ConnectHardwareKeyboard"</span>:<span class="literal">false</span>&#125;</span><br><span class="line">[debug] [iOSSim] The <span class="keyword">count</span> <span class="keyword">of</span> running Simulator UI <span class="keyword">client</span> instances <span class="keyword">is</span> <span class="number">1</span></span><br><span class="line">[iOSSim] <span class="keyword">Both</span> Simulator <span class="keyword">with</span> UDID <span class="number">2</span>EF911A2-CA9C<span class="number">-4</span>D28<span class="number">-96</span>EB<span class="number">-3</span>DBC8DF39FA5 <span class="keyword">and</span> the UI <span class="keyword">client</span> <span class="keyword">are</span> currently running</span><br><span class="line">[debug] [BaseDriver] <span class="keyword">Event</span> <span class="string">'simStarted'</span> logged <span class="keyword">at</span> <span class="number">1516514437783</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">37</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line">[debug] [XCUITest] <span class="keyword">Reset</span> requested. Removing app <span class="keyword">with</span> <span class="keyword">id</span> <span class="string">'io.appium.TestApp'</span> <span class="keyword">from</span> the device</span><br><span class="line">[debug] [XCUITest] Installing <span class="string">'/Users/用户名/Documents/github/python-client-master/appium/TestApp/build/release-iphonesimulator/TestApp-iphonesimulator.app'</span> <span class="keyword">on</span> Simulator <span class="keyword">with</span> <span class="keyword">UUID</span> <span class="string">'2EF911A2-CA9C-4D28-96EB-3DBC8DF39FA5'</span>...</span><br><span class="line">[debug] [XCUITest] The app has been installed successfully.</span><br><span class="line">[debug] [BaseDriver] <span class="keyword">Event</span> <span class="string">'appInstalled'</span> logged <span class="keyword">at</span> <span class="number">1516514440337</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">40</span> GMT+<span class="number">0800</span> (CST))</span><br></pre></td></tr></table></figure></p>
+<p>APP安装成功之后开始处理WDA<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[XCUITest] Using WDA path: '/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent'</span><br><span class="line">[XCUITest] Using WDA agent: '/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/WebDriverAgent.xcodeproj'</span><br><span class="line">[debug] [XCUITest] No obsolete cached processes from previous WDA sessions listening on port 8100 have been found</span><br><span class="line">[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body</span><br><span class="line">[debug] [JSONWP Proxy] Got response with status 200: "&#123;<span class="symbol">\n</span>  <span class="symbol">\"</span>value<span class="symbol">\"</span> : &#123;<span class="symbol">\n</span>    <span class="symbol">\"</span>state<span class="symbol">\"</span> : <span class="symbol">\"</span>success<span class="symbol">\"</span>,<span class="symbol">\n</span>    <span class="symbol">\"</span>os<span class="symbol">\"</span> : &#123;<span class="symbol">\n</span>      <span class="symbol">\"</span>name<span class="symbol">\"</span> : <span class="symbol">\"</span>iOS<span class="symbol">\"</span>,<span class="symbol">\n</span>      <span class="symbol">\"</span>version<span class="symbol">\"</span> : <span class="symbol">\"</span>11.2<span class="symbol">\"</span>,<span class="symbol">\n</span>      <span class="symbol">\"</span>sdkVersion<span class="symbol">\"</span> : <span class="symbol">\"</span>11.2<span class="symbol">\"</span><span class="symbol">\n</span>    &#125;,<span class="symbol">\n</span>    <span class="symbol">\"</span>ios<span class="symbol">\"</span> : &#123;<span class="symbol">\n</span>      <span class="symbol">\"</span>simulatorVersion<span class="symbol">\"</span> : <span class="symbol">\"</span>11.2<span class="symbol">\"</span>,<span class="symbol">\n</span>      <span class="symbol">\"</span>ip<span class="symbol">\"</span> : <span class="symbol">\"</span>192.168.0.102<span class="symbol">\"</span><span class="symbol">\n</span>    &#125;,<span class="symbol">\n</span>    <span class="symbol">\"</span>build<span class="symbol">\"</span> : &#123;<span class="symbol">\n</span>      <span class="symbol">\"</span>time<span class="symbol">\"</span> : <span class="symbol">\"</span>Jan 14 2018 23:25:10<span class="symbol">\"</span><span class="symbol">\n</span>    &#125;<span class="symbol">\n</span>  &#125;,<span class="symbol">\n</span>  <span class="symbol">\"</span>sessionId<span class="symbol">\"</span> : <span class="symbol">\"</span>17DE3FB9-3196-4C9C-9D55-3BFFDD0C1DEB<span class="symbol">\"</span>,<span class="symbol">\n</span>  <span class="symbol">\"</span>status<span class="symbol">\"</span> : 0<span class="symbol">\n</span>&#125;"</span><br><span class="line">[XCUITest] Will reuse previously cached WDA instance at 'http://localhost:8100/'. Set the wdaLocalPort capability to a value different from 8100 if this is an undesired behavior.</span><br><span class="line">[debug] [BaseDriver] Event 'wdaStartAttempted' logged at 1516514440422 (14:00:40 GMT+0800 (CST))</span><br><span class="line">[XCUITest] Using provided WebdriverAgent at 'http://localhost:8100/'</span><br><span class="line">[debug] [BaseDriver] Event 'wdaSessionAttempted' logged at 1516514440423 (14:00:40 GMT+0800 (CST))</span><br><span class="line">[debug] [XCUITest] Sending createSession command to WDA</span><br></pre></td></tr></table></figure></p>
+<p>在XCUITest中开启WDA之后，此时链接的request和response进入了  <code>appium-base-driver/lib/jsonwp-proxyproxy.js</code> ，这个js主要是做S/D的链接，即server服务端与devices设备的链接<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[debug]</span> <span class="string">[JSONWP Proxy]</span> Proxying <span class="string">[GET /status]</span> to <span class="string">[GET http://localhost:8100/status]</span> with no body</span><br><span class="line"><span class="string">[debug]</span> <span class="string">[JSONWP Proxy]</span> Got response with status <span class="number">200</span>: <span class="string">"&#123;\n  \"</span>value\<span class="string">" : &#123;\n    \"</span>state\<span class="string">" : \"</span>success\<span class="string">",\n    \"</span>os\<span class="string">" : &#123;\n      \"</span>name\<span class="string">" : \"</span>iOS\<span class="string">",\n      \"</span>version\<span class="string">" : \"</span><span class="number">11</span>.<span class="number">2</span>\<span class="string">",\n      \"</span>sdkVersion\<span class="string">" : \"</span><span class="number">11</span>.<span class="number">2</span>\<span class="string">"\n    &#125;,\n    \"</span>ios\<span class="string">" : &#123;\n      \"</span>simulatorVersion\<span class="string">" : \"</span><span class="number">11</span>.<span class="number">2</span>\<span class="string">",\n      \"</span>ip\<span class="string">" : \"</span><span class="number">192.168.0.102</span>\<span class="string">"\n    &#125;,\n    \"</span>build\<span class="string">" : &#123;\n      \"</span>time\<span class="string">" : \"</span>Jan <span class="number">14</span> <span class="number">2018</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">10</span>\<span class="string">"\n    &#125;\n  &#125;,\n  \"</span>sessionId\<span class="string">" : \"</span>17DE3FB9-<span class="number">3196</span>-4C9C-9D55-3BFFDD0C1DEB\<span class="string">",\n  \"</span>status\<span class="string">" : 0\n&#125;"</span></span><br><span class="line"><span class="string">[debug]</span> <span class="string">[JSONWP Proxy]</span> Proxying <span class="string">[POST /session]</span> to <span class="string">[POST http://localhost:8100/session]</span> with body: &#123;<span class="string">"desiredCapabilities"</span>:&#123;<span class="string">"bundleId"</span>:<span class="string">"io.appium.TestApp"</span>,<span class="string">"arguments"</span>:<span class="string">[]</span>,<span class="string">"environment"</span>:&#123;&#125;,<span class="string">"shouldWaitForQuiescence"</span>:true,<span class="string">"shouldUseTestManagerForVisibilityDetection"</span>:false,<span class="string">"maxTypingFrequency"</span>:<span class="number">60</span>,<span class="string">"shouldUseSingletonTestManager"</span>:true&#125;&#125;</span><br><span class="line"><span class="string">[debug]</span> <span class="string">[JSONWP Proxy]</span> Got response with status <span class="number">200</span>: &#123;<span class="string">"value"</span>:&#123;<span class="string">"sessionId"</span>:<span class="string">"95403F32-CD9B-4A0E-AA89-4BE9C899FBBC"</span>,<span class="string">"capabilities"</span>:&#123;<span class="string">"device"</span>:<span class="string">"iphone"</span>,<span class="string">"browserName"</span>:<span class="string">"TestApp"</span>,<span class="string">"sdkVersion"</span>:<span class="string">"11.2"</span>,<span class="string">"CFBundleIdentifier"</span>:<span class="string">"io.appium.TestApp"</span>&#125;&#125;,<span class="string">"sessionId"</span>:<span class="string">"95403F32-CD9B-4A0E-AA89-4BE9C899FBBC"</span>,<span class="string">"status"</span>:<span class="number">0</span>&#125;</span><br><span class="line"><span class="string">[debug]</span> <span class="string">[BaseDriver]</span> Event 'wdaSessionStarted' logged at <span class="number">1516514443103</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">43</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line"><span class="string">[debug]</span> <span class="string">[BaseDriver]</span> Event 'wdaStarted' logged at <span class="number">1516514443103</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">43</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line"><span class="string">[XCUITest]</span> Skipping setting of the initial display orientation. Set the <span class="string">"orientation"</span> capability to either <span class="string">"LANDSCAPE"</span> or <span class="string">"PORTRAIT"</span>, if this is an undesired behavior.</span><br><span class="line"><span class="string">[debug]</span> <span class="string">[BaseDriver]</span> Event 'orientationSet' logged at <span class="number">1516514443103</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">43</span> GMT+<span class="number">0800</span> (CST))</span><br></pre></td></tr></table></figure></p>
+<p>上边WDA开启完毕，session创建成功，这个session的创建过程是从</p>
+<p><strong>mjsonwp.js（HTTP请求入口）-》appium.js中的createSession-》跳转到XCUITEST中的createSession-》跳转到appium-base-driver/basedriver/driver.js中的creatSession   创建成功之后回到了appium.js中将log打印，最后回到了mjsonwp.js将response返回并通知。</strong></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Appium] New XCUITestDriver session created successfully, session <span class="number">8790</span>f1db<span class="number">-9627</span><span class="number">-41</span>ce-a534-bc40159c7194 added <span class="keyword">to</span> master session <span class="built_in">list</span></span><br><span class="line">[debug] [BaseDriver] Event 'newSessionStarted' logged <span class="keyword">at</span> <span class="number">1516514443104</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">43</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line">[debug] [MJSONWP] Responding <span class="keyword">to</span> client <span class="keyword">with</span> driver.createSession() <span class="literal">result</span>: &#123;<span class="string">"webStorageEnabled"</span>:<span class="literal">false</span>,<span class="string">"locationContextEnabled"</span>:<span class="literal">false</span>,<span class="string">"browserName"</span>:<span class="string">""</span>,<span class="string">"platform"</span>:<span class="string">"MAC"</span>,<span class="string">"javascriptEnabled"</span>:<span class="literal">true</span>,<span class="string">"databaseEnabled"</span>:<span class="literal">false</span>,<span class="string">"takesScreenshot"</span>:<span class="literal">true</span>,<span class="string">"networkConnectionEnabled"</span>:<span class="literal">false</span>,<span class="string">"platformVersion"</span>:<span class="string">"11.2"</span>,<span class="string">"deviceName"</span>:<span class="string">"iPhone 6s"</span>,<span class="string">"app"</span>:<span class="string">"/Users/用户名/Documents/github/python-client-master/appium/TestApp/build/release-iphonesimulator/TestApp-iphonesimulator.app"</span>,<span class="string">"platformName"</span>:<span class="string">"iOS"</span>,<span class="string">"udid"</span>:<span class="string">"2EF911A2-CA9C-4D28-96EB-3DBC8DF39FA5"</span>&#125;</span><br><span class="line">[HTTP] &lt;<span class="comment">-- POST /wd/hub/session 200 7841 ms - 515</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="第二部分-发送操作请求执行并返回"><a href="#第二部分-发送操作请求执行并返回" class="headerlink" title="第二部分 发送操作请求执行并返回"></a>第二部分 发送操作请求执行并返回</h4><p>客户端传来请求获取element，该请求进入mjsonwp.js进行处理，通过executeCommand函数进入appium.js 进入appium-xcuitest-driver‘类库 与JSONWP Proxy[appium-base-driver/lib/jsonwp/proxy.js]进行协议交互  交互结果返回MJSONWP[appium-base-driver/lib/mjsonwp/mjsonwp.js]<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[HTTP] --&gt; POST /wd/hub/session/<span class="number">8790</span>f1db-<span class="number">9627</span>-<span class="number">41</span><span class="keyword">ce</span>-a534-bc40159c7194/element &#123;<span class="string">"using"</span>:<span class="string">"accessibility id"</span>,<span class="string">"sessionId"</span>:<span class="string">"8790f1db-9627-41ce-a534-bc40159c7194"</span>,<span class="string">"value"</span>:<span class="string">"TextField1"</span>&#125;</span><br><span class="line">[<span class="keyword">debug</span>] [MJSONWP] Calling AppiumDriver.findElement() with arg<span class="variable">s:</span> [<span class="string">"accessibility id"</span>,<span class="string">"TextField1"</span>,<span class="string">"8790f1db-9627-41ce-a534-bc40159c7194"</span>]</span><br><span class="line">[<span class="keyword">debug</span>] [XCUITest] Executing <span class="keyword">command</span> <span class="string">'findElement'</span></span><br><span class="line">[<span class="keyword">debug</span>] [BaseDriver] Valid locator strategies <span class="keyword">for</span> this reques<span class="variable">t:</span> xpath, id, name, class name, -ios predicate <span class="built_in">string</span>, -ios class chain, accessibility id</span><br><span class="line">[<span class="keyword">debug</span>] [BaseDriver] Waiting <span class="keyword">up</span> <span class="keyword">to</span> <span class="number">0</span> ms <span class="keyword">for</span> condition</span><br><span class="line">[<span class="keyword">debug</span>] [JSONWP Proxy] Proxying [POST /element] <span class="keyword">to</span> [POST http://localhos<span class="variable">t:8100</span>/session/<span class="number">95403</span>F32-CD9B-<span class="number">4</span>A0E-AA89-<span class="number">4</span>BE9C899FBBC/element] with body: &#123;<span class="string">"using"</span>:<span class="string">"accessibility id"</span>,<span class="string">"value"</span>:<span class="string">"TextField1"</span>&#125;</span><br><span class="line">[<span class="keyword">debug</span>] [JSONWP Proxy] Got response with status <span class="number">200</span>: &#123;<span class="string">"value"</span>:&#123;<span class="string">"ELEMENT"</span>:<span class="string">"A3063789-1A9E-4FA2-A645-F2E257F0BB30"</span>&#125;,<span class="string">"sessionId"</span>:<span class="string">"95403F32-CD9B-4A0E-AA89-4BE9C899FBBC"</span>,<span class="string">"status"</span>:<span class="number">0</span>&#125;</span><br><span class="line">[<span class="keyword">debug</span>] [MJSONWP] Responding <span class="keyword">to</span> client with driver.findElement() resul<span class="variable">t:</span> &#123;<span class="string">"ELEMENT"</span>:<span class="string">"A3063789-1A9E-4FA2-A645-F2E257F0BB30"</span>&#125;</span><br><span class="line">[HTTP] &lt;-- POST /wd/hub/session/<span class="number">8790</span>f1db-<span class="number">9627</span>-<span class="number">41</span><span class="keyword">ce</span>-a534-bc40159c7194/element <span class="number">200</span> <span class="number">83</span> ms - <span class="number">122</span></span><br></pre></td></tr></table></figure></p>
+<p>客户端再次传来请求，以下都是重复请求与返回，直到客户端传来删除会话。<br>当客户端单个任务执行完毕时，客户端传来删除会话，通讯与其它没有什么差别。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[HTTP] <span class="comment">--&gt; DELETE /wd/hub/session/5469f63c-9b2b-4a3a-bbdb-fa26bd6315f9 &#123;&#125;</span></span><br><span class="line">[debug] [MJSONWP] Calling AppiumDriver.deleteSession() with args: ["5469f63c-9b2b-4a3a-bbdb-fa26bd6315f9"]</span><br><span class="line">[debug] [BaseDriver] Event 'quitSessionRequested' logged at 1516514455122 (14:00:55 GMT+0800 (CST))</span><br><span class="line">[Appium] Removing session 5469f63c-9b2b-4a3a-bbdb-fa26bd6315f9 from our master session list</span><br><span class="line">[debug] [JSONWP Proxy] Proxying [<span class="keyword">DELETE</span> /<span class="keyword">session</span>/<span class="number">5469</span>f63c<span class="number">-9</span>b2b<span class="number">-4</span>a3a-bbdb-fa26bd6315f9] <span class="keyword">to</span> [<span class="keyword">DELETE</span> <span class="keyword">http</span>://localhost:<span class="number">8100</span>/<span class="keyword">session</span>/E9944FDA<span class="number">-46</span>DC<span class="number">-48</span>B4<span class="number">-824</span>B-A2C99D0B3BD2] <span class="keyword">with</span> <span class="keyword">no</span> <span class="keyword">body</span></span><br><span class="line">[debug] [JSONWP Proxy] Got response <span class="keyword">with</span> <span class="keyword">status</span> <span class="number">200</span>: <span class="string">"&#123;\n  \"value\" : &#123;\n\n  &#125;,\n  \"sessionId\" : \"334D0B8A-6B9E-4BAA-9BDA-BFEE66EBB584\",\n  \"status\" : 0\n&#125;"</span></span><br><span class="line">[debug] [XCUITest] <span class="keyword">Not</span> clearing <span class="keyword">log</span> files. <span class="keyword">Use</span> <span class="string">`clearSystemFiles`</span> capability <span class="keyword">to</span> turn on.</span><br><span class="line">[debug] [iOSLog] Stopping iOS <span class="keyword">log</span> capture</span><br><span class="line">[debug] [BaseDriver] <span class="keyword">Event</span> <span class="string">'quitSessionFinished'</span> logged <span class="keyword">at</span> <span class="number">1516514455352</span> (<span class="number">14</span>:<span class="number">00</span>:<span class="number">55</span> GMT+<span class="number">0800</span> (CST))</span><br><span class="line">[debug] [MJSONWP] Received response: <span class="literal">null</span></span><br><span class="line">[debug] [MJSONWP] But deleting <span class="keyword">session</span>, so <span class="keyword">not</span> <span class="keyword">returning</span></span><br><span class="line">[debug] [MJSONWP] Responding <span class="keyword">to</span> <span class="keyword">client</span> <span class="keyword">with</span> driver.deleteSession() <span class="keyword">result</span>: <span class="literal">null</span></span><br><span class="line">[<span class="keyword">HTTP</span>] &lt;<span class="comment">-- DELETE /wd/hub/session/5469f63c-9b2b-4a3a-bbdb-fa26bd6315f9 200 231 ms - 76</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
