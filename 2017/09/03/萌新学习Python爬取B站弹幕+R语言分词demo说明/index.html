@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?365f8ba6d7b144150d8c71be001446ec";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+        
+    <title>
+        
+        萌新学习Python爬取B站弹幕+R语言分词demo说明 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> welcome </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python爬取B站弹幕"><span class="toc-text">Python爬取B站弹幕</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境说明"><span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤说明"><span class="toc-text">步骤说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Demo说明"><span class="toc-text">Demo说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python爬取end"><span class="toc-text">Python爬取end</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境说明-1"><span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤说明-1"><span class="toc-text">步骤说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#demo说明"><span class="toc-text">demo说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题说明"><span class="toc-text">问题说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#R语言分词end"><span class="toc-text">R语言分词end</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> welcome </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        萌新学习Python爬取B站弹幕+R语言分词demo说明
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-09-03 15:14:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Python" title="Python">Python</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>之前在简书首页看到了Python爬虫的介绍，于是就想着爬取B站弹幕并绘制词云，因此有了这样一个简单的尝试，从搭建环境到跑通demo，不懂语法，不知含义，装好环境，查到API，跑通Demo，就是目标！纯零基础萌新！<br><a href="https://github.com/a67c/pyBilibilBarrage" target="_blank" rel="noopener">demo地址</a>(只有python的demo，R的没有上传)</p>
+<p><a href="http://www.jianshu.com/p/2f2b92783c5b" target="_blank" rel="noopener">关于环境的安装及调试过程中遇到的问题记录请移步</a></p>
+<h2 id="Python爬取B站弹幕"><a href="#Python爬取B站弹幕" class="headerlink" title="Python爬取B站弹幕"></a>Python爬取B站弹幕</h2><h3 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h3><p><strong>windows8.1 x64+python3.6+scrapy1.4</strong></p>
+<p>参考文档：</p>
+<p><a href="https://github.com/scrapy/scrapy/blob/1.4/docs/topics/selectors.rst" target="_blank" rel="noopener">scrapy github</a></p>
+<p><a href="https://doc.scrapy.org/en/latest/topics/selectors.html?highlight=extract" target="_blank" rel="noopener">scrapy document</a></p>
+<p><a href="http://blog.csdn.net/zjiang1994/article/details/52779537" target="_blank" rel="noopener">scrapy爬虫框架入门实例</a></p>
+<h3 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h3><ul>
+<li>安装python3.6</li>
+<li>安装scrapy1.4</li>
+<li>建立scrapy demo</li>
+<li>跑通demo遇到问题、解决问题</li>
+<li>更改demo为B站弹幕爬取demo<br>我这边是按照参考文档中 <a href="http://blog.csdn.net/zjiang1994/article/details/52779537" target="_blank" rel="noopener">scrapy爬虫框架入门实例</a>这个demo来做的，这个文章里面无论是介绍还是<code>scrapy</code>的入门都非常详细，建议大家按照这个来入门，但是由于慕课网的结构样式以及更改了，所以demo是跑不起来的，因此我换成了爬取B站的弹幕demo。截止2017年9月2日亲测可跑通。</li>
+</ul>
+<h3 id="Demo说明"><a href="#Demo说明" class="headerlink" title="Demo说明"></a>Demo说明</h3><p><strong>1.  安装scrapy成功之后建立项目<code>scrapytest</code></strong><br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">scrapy startproject scrapytest</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2. demo目录</strong><br>本demo目录仅保留当前demo可用的文件，且文件名字不同于<code>scrapy</code>自动生成的文件名字，对于未涉及到的文件进行了删除<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">│  scrapy.cfg<span class="comment">//项目的配置文件</span></span><br><span class="line">└─scrapytest</span><br><span class="line">    │  CourseItems.py<span class="comment">//定义一个容器保存要爬取的数据</span></span><br><span class="line">    │  MyPipelines.py<span class="comment">//项目中的pipelines文件.</span></span><br><span class="line">    │  settings.py<span class="comment">//项目中的设置文件.</span></span><br><span class="line">    ├─spiders</span><br><span class="line">    │  │  <span class="keyword">data</span>.json<span class="comment">//爬取数据生成的文件</span></span><br><span class="line">    │  └─ Myspider.py<span class="comment">//爬虫主代码</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>3. demo代码</strong></p>
+<p> <strong>创建CourseItems.py文件</strong><br>定义一个容器保存要爬取的数据。为了定义常用的输出数据，<code>Scrapy</code>提供了<code>Item</code>类。<code>Item</code>对象是种简单的容器，保存了爬取到得数据。 其提供了 类似于词典(dictionary-like)的API以及用于声明可用字段的简单语法。由于最后输出的只要弹幕的内容，所以容器中只定义了弹幕的内容</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#引入文件</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">CourseItem</span>(<span class="title">scrapy</span>.<span class="type">Item</span>):</span></span><br><span class="line"><span class="class">    #弹幕内容</span></span><br><span class="line"><span class="class">    content = scrapy.<span class="type">Field</span>()</span></span><br></pre></td></tr></table></figure>
+<p> <strong>编写爬取代码Myspider.py</strong></p>
+<ul>
+<li>bilibili的弹幕是在xml文件里，每个视频都有其对应的cid和aid，我们取到cid中的数字放入<code>http://comment.bilibili.com/+cid+.xml</code>,即可得到该视频对应的cid。<br>cid取法：cid在源码中是没有找到的，目前我的做法是在页面上F12，然后查找cid，该cid即为弹幕页的标识，如果有可以通过代码查到的方法，还请告知。目前例子中的cid有1000多条弹幕，建议大家换个少的进行测试。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-e060510f5149b12e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cid查找方法"></p>
+<ul>
+<li>弹幕的xml文件结构非常简单，所以通过Xpath简单解析即可</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-27d44a81c00fc3cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="弹幕的xml文件结构"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="comment">#引入容器</span></span><br><span class="line"><span class="keyword">from</span> scrapytest.CourseItems <span class="keyword">import</span> CourseItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myspider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    <span class="comment">#设置name</span></span><br><span class="line">    name = <span class="string">"Myspider"</span> //启动项目时所用name</span><br><span class="line">    <span class="comment">#设定域名</span></span><br><span class="line">    allowed_domains = [<span class="string">"bilibili.com"</span>]</span><br><span class="line">    <span class="comment">#填写爬取地址</span></span><br><span class="line">    start_urls = [<span class="string">"http://comment.bilibili.com/2015358.xml"</span>]</span><br><span class="line">    <span class="comment">#编写爬取方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment">#实例一个容器保存爬取的信息</span></span><br><span class="line">        item = CourseItem()</span><br><span class="line">        <span class="comment">#这部分是爬取部分，使用xpath的方式选择信息，具体方法根据网页结构而定</span></span><br><span class="line">        <span class="comment">#直接爬取弹幕内容</span></span><br><span class="line">        str0 = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> box <span class="keyword">in</span> response.xpath(<span class="string">'/i/d/text()'</span>):</span><br><span class="line">            <span class="comment">#获取每一条弹幕内容</span></span><br><span class="line">            str0 += box.extract()+<span class="string">','</span>;</span><br><span class="line">            <span class="comment">#返回信息</span></span><br><span class="line">        item[<span class="string">'content'</span>] = str0;//最后输出的结构是值：字符串的结构，详细见输出图</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<p><strong>编写MyPipelines.py处理数据</strong><br>当成功获取信息后，要进行信息的验证、储存等工作，这里只进行简单的将数据存储在json中的操作。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#引入文件</span></span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#打开文件</span></span><br><span class="line">        self.file = open(<span class="string">'data.json'</span>, <span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">    <span class="comment">#该方法用于处理数据</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#读取item中的数据</span></span><br><span class="line">        line = json.dumps(dict(item), ensure_ascii=<span class="keyword">False</span>) + <span class="string">"\n"</span></span><br><span class="line">        <span class="comment">#写入文件</span></span><br><span class="line">        self.file.write(line)</span><br><span class="line">        <span class="comment">#返回item</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line">    <span class="comment">#该方法在spider被开启时被调用。</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">#该方法在spider被关闭时被调用。</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注册Pipeline</strong><br>找到<code>settings.py</code>文件,这个文件时爬虫的配置文件，在其中添加<br> <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    'scrapytest.MyPipelines.MyPipeline': 300,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码用于注册<code>Pipeline</code>，其中<code>scrapytest.MyPipelines.MyPipeline</code>为你要注册的类，右侧的’300’为该<code>Pipeline</code>的优先级，范围1～1000，越小越先执行。(<em>ps：这个并没有详细了解</em>)<br><strong>4. 运行demo</strong><br>在<code>Myspider.py</code>的同级下执行cmd控制台，运行一下命令。<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">scrapy crawl MySpider</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 运行结果</strong><br>这是一个json的文件，json文件的输出结构更改在<code>Myspider.py</code>中，我改成这种通过逗号来连接每一条弹幕时是为了之后方便分词。大家也可以把代码改了改成另一种展示方式</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-3729642445b03ed2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="便于分词的展示方式"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-074555839887ab2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="另一种方式"></p>
+<h3 id="Python爬取end"><a href="#Python爬取end" class="headerlink" title="Python爬取end"></a>Python爬取end</h3><p>到此python爬取B站弹幕demo结束，接下来我们通过拿到的json文件去R语言中进行分词。</p>
+<p>##R语言分词实例</p>
+<h3 id="环境说明-1"><a href="#环境说明-1" class="headerlink" title="环境说明"></a>环境说明</h3><p><strong>window8.1 x64+R3.4.2+jiebaR插件+rJson插件+RStudio编辑器+wordcloud2插件</strong></p>
+<p><a href="https://www.r-project.org/" target="_blank" rel="noopener">R语言官网</a></p>
+<p><a href="https://www.rstudio.com/products/rstudio/download/" target="_blank" rel="noopener">Rstudio下载地址</a></p>
+<p><a href="http://blog.fens.me/r-word-jiebar/" target="_blank" rel="noopener">R语言中文分司包jiabaR</a></p>
+<p><a href="http://blog.fens.me/r-json-rjson/" target="_blank" rel="noopener">R和json的傻瓜式编程</a></p>
+<p><a href="https://www.w3cschool.cn/r/r_overview.html" target="_blank" rel="noopener">R语言w3c教程</a></p>
+<p><a href="http://qinwenfeng.com/jiebaR/section-1-1.html" target="_blank" rel="noopener">jiebaR中午分词文档</a></p>
+<p><a href="https://github.com/Lchiffon/wordcloud2" target="_blank" rel="noopener">wordcloud2 gtihub</a></p>
+<p><a href="http://www.cnblogs.com/nxld/p/6344233.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">R语言︱文本挖掘——词云wordcloud2包</a></p>
+<h3 id="步骤说明-1"><a href="#步骤说明-1" class="headerlink" title="步骤说明"></a>步骤说明</h3><ul>
+<li>安装R、Rstudio、jiebaR、rJSON</li>
+<li>引入JSON文件</li>
+<li>分词处理</li>
+<li>停止词处理</li>
+<li>过滤数字及字母</li>
+<li>产生数据</li>
+<li>调用wordcloud2绘制词云<br>关于<code>jiebaR</code>分词基本是按照<a href="http://blog.fens.me/r-word-jiebar/" target="_blank" rel="noopener">R语言中文分司包jiabaR</a>这个博客的demo来进行的。该博文中对于<code>jiebaR</code>的各种函数介绍的非常全面，因此下面demo将不对代码内容进行详细介绍。demo中的各种路径请自行更改。</li>
+</ul>
+<h3 id="demo说明"><a href="#demo说明" class="headerlink" title="demo说明"></a>demo说明</h3><p>只有一个jiebaR.R文件即完成了分词和绘制词云，代码如下：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#调入分词的库</span><br><span class="line">library(<span class="string">"jiebaR"</span>)</span><br><span class="line">library(<span class="string">"rjson"</span>)</span><br><span class="line"></span><br><span class="line">#这里读取的`python`爬取的`json`文件，拿道了对象中`content`键的值，该值是一长串字符串，在爬虫输出的时候通过逗号来连接字符串，因此分词时是通过逗号进行的分词</span><br><span class="line">myfile&lt;-fromJSON(file = <span class="string">"F:/gitlab/py/scrapytest/scrapytest/spiders/data.json"</span>)$content</span><br><span class="line"></span><br><span class="line">#预处理，这步可以将读入的文本转换为可以分词的字符，本demo通过逗号进行分词</span><br><span class="line"> myfile.res&lt;-myfile[myfile!=<span class="string">","</span>]</span><br><span class="line"></span><br><span class="line">#调用分词引擎worker函数  stop_word为停止词设置</span><br><span class="line">wk = worker(stop_word =<span class="string">'F:/R/stopw.txt'</span>)</span><br><span class="line"></span><br><span class="line">#segment为分词结果</span><br><span class="line">segment = wk[myfile.res]</span><br><span class="line"></span><br><span class="line">#对于分词结果进行正则过滤，去掉数字及字母</span><br><span class="line">segment = gsub(<span class="string">"[a-zA-Z\\/\\.0-9]+"</span>,<span class="string">""</span>,segment)</span><br><span class="line"></span><br><span class="line">#计算词频，该data即为传入词云的数据</span><br><span class="line">data &lt;- freq(segment)</span><br><span class="line"></span><br><span class="line">#引入wordcloud2，在引入之前请先安装</span><br><span class="line"> library(wordcloud2)  </span><br><span class="line"></span><br><span class="line">#调用wordcloud2函数绘制词云，该函数参数在github已有介绍</span><br><span class="line">  wordcloud2(data,size = <span class="number">1</span>, fontFamily = <span class="string">"微软雅黑"</span>,color = <span class="string">"random-light"</span><span class="string">")</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-9024949a3137c79c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算词频后的结果"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-f9d22e28a612a9bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="我一开始万万没有想到我分出来会这么丑"></p>
+<h3 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h3><p><strong>1.计算词频</strong></p>
+<p>由于弹幕的条数比较多，分词过滤后的词频很多，没有细查找如何再进一步的排序过滤筛选词，所以导致词云的结果并不是很好</p>
+<p><strong>2. 关键词提取</strong></p>
+<p>个人认为通过关键字提取出的词云会更好一旦，<code>jiabaR</code>提供了关键字提取的方法及提取的结果，结果上面是词语出现频率。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#提取150个关键字</span></span><br><span class="line"><span class="attr">keys</span> = worker(<span class="string">"keywords"</span>,topn=<span class="number">150</span>)</span><br><span class="line"><span class="comment">#关键字结果</span></span><br><span class="line"><span class="attr">re</span> = vector_keywords(segment,keys)</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-d6d5dae7d30132e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="提取出的关键字结果"><br>从图上可以看出这个关键词比较适合用来做词云，但是这里遇到了问题，关键字的结果时<code>vector</code>类型，并不能直接作为<code>wordcloud</code>的参数，从测试结果上来看<code>wordcloud</code>的参数接收<code>data.frame</code>类型，且要有词的内容和词频，当我通过如下代码将<code>vector</code>类型转换为<code>data.frame</code>时，并将结果输出到了<code>csv</code>的文件后发现，输出的内容并没有词频。<strong>没有词频就无法通过<code>wordcloud</code>来进行绘制！！！</strong>,<strong>求指教如何将关键词放入<code>wordcloud</code>进行绘制！！！</strong></p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#re为调用vector_keywords产生的结果</span></span><br><span class="line"><span class="class"><span class="keyword">data</span>.frame(<span class="title">re</span>);</span></span><br><span class="line"><span class="meta">#将结果输出到文件中</span></span><br><span class="line"><span class="title">write</span>.csv(<span class="class"><span class="keyword">data</span>.frame(<span class="title">re</span>),"<span class="type">F</span>:/<span class="type">R</span>/2345.csv",row.names = <span class="type">T</span>)</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-87adec761690384e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="通过调用关键词函数vector_keywords产生的结果"></p>
+<p><strong>3. 提出出的词语如何能文字更多</strong><br>在做词库处理时，我这边用了搜狗的词库替换了<code>jiabaR</code>的原来词库，因此可以出现类似于<code>神罗天征</code>这样的四字词语，在原来的词库里，连<code>宇智波</code>都是被分开的！但是如何把很短的一句话也提取出来呢，从最开始的弹幕可以看到，原文件中是有大量的重复的一句话，除了自己在搜狗词包之外设置固定的词语短句，不知道还有没有别的方法，欢迎指导。</p>
+<h2 id="R语言分词end"><a href="#R语言分词end" class="headerlink" title="R语言分词end"></a>R语言分词end</h2><p>最后的那个图被我做的太丑了，简直影响观看，我如果一开始能预料到分出来会这么丑……我万万不会去分的，而且现在做云文字的网站都自带分词好像是，所以……所以我也不知道我这是在干嘛……。<strong>如有错误还请指教！</strong></p>
+<p>在整个过程中遇到的调试记录请移步<a href="/2017/09/03/Python爬取B站弹幕+R语言分词安装调试报错记录/">Python爬取B站弹幕+R语言分词安装调试报错记录</a></p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
