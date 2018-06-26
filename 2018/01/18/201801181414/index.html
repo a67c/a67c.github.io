@@ -20,7 +20,7 @@
         
     <title>
         
-        About - 进击的程序茗
+        关于Appium在安卓上频繁安装unlock、setting.apk的问题查找记录 - 进击的程序茗
         
     </title>
 
@@ -80,7 +80,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -96,6 +96,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-x版本说明"><span class="toc-text">1.6.x版本说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-7-x版本说明"><span class="toc-text">1.7.x版本说明</span></a></li></ol>
+</div>
     
 </div>
 
@@ -120,17 +124,47 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-content ">
-    <h4 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h4><ul>
-<li>2015.11 - 2017.12 新浪前端RD</li>
-<li>2018.01 - 至今 百度测试QA</li>
-</ul>
 
-    
-    <div id="comment-container">
+
+<div class="post-container">
+    <div class="post-title">
+        关于Appium在安卓上频繁安装unlock、setting.apk的问题查找记录
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-01-18 14:14:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Appium" title="Appium">Appium</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>该问题已经被官方在1.7.x的版本中进行修复。以下为对于该问题的查找记录</p>
+<h4 id="1-6-x版本说明"><a href="#1-6-x版本说明" class="headerlink" title="1.6.x版本说明"></a>1.6.x版本说明</h4><p>在appium1.6.x版本中 每次进行安卓用例测试时 appium都会安装unlock.app、setting.app、ime.app</p>
+<p>关于这个的解决方式可参考如下blog</p>
+<p><a href="http://blog.csdn.net/hszxd479946/article/details/78900982" target="_blank" rel="noopener">appium解决每次运行都需要安装Unlock以及AppiumSetting的问题</a></p>
+<p>或者在appium设计到该处问题的源码位置，将其添加判断以上app是否安装的逻辑即可</p>
+<h4 id="1-7-x版本说明"><a href="#1-7-x版本说明" class="headerlink" title="1.7.x版本说明"></a>1.7.x版本说明</h4><p>当前npm版本为1.7.2版本，官方已经修复了这个问题，在1.7.2的<a href="https://github.com/appium/appium/blob/master/CHANGELOG.md" target="_blank" rel="noopener">changeLog</a>中说明如下：<br><img src="http://upload-images.jianshu.io/upload_images/1094385-b33ef73da19de461.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png">;</p>
+<p>由于这个问题设计到的代码在appium-android-driver这个封装好的组件中，所以具体看一下是什么时候更改的,是在17年10月份的这次代码提交中修复了该问题。</p>
+<p>从commit继续往下看，9月份这里也进行过改动，但是10月份改动之后与当前npm版本是一致的。<br><a href="https://github.com/appium/appium-android-driver/commit/033b70e75fcada83ff2e73e99d9c605c59b35621" target="_blank" rel="noopener">Fix handling of settings and unlock app pushing</a><br><img src="http://upload-images.jianshu.io/upload_images/1094385-8827acf34ec14ae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对于installOrUpgrade这个函数，它的定义在封装好的android-adb类库里面，那么接下来去这里看一下对于这个函数的更改。</p>
+<p><a href="https://github.com/appium/appium-adb/commit/404455cf43e1f0086fa30d1ff6675f216f2e5a73" target="_blank" rel="noopener">android-adb commit</a></p>
+<p>这个函数同样进行了两次更改，在9月份的更改中采用了外部传参的方式判断是否安装但是在10月份的commit中又去掉了外部传参的参数，改为在该函数中判断是否安装</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-c070ef3ec671314c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><strong>对于这个的总结就是该问题已经被官方在1.7.x的版本中进行修复。</strong><br><strong>2018年1月</strong></p>
+
+        
+        <div id="comment-container">
+        </div>
     </div>
 </div>
-
     </div>
 </div>
 
@@ -169,7 +203,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

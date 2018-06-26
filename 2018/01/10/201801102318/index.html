@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/bing.jpeg">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?365f8ba6d7b144150d8c71be001446ec";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+        
+    <title>
+        
+        基于Appium+WDA+Python搭建IOS自动化测试全纪录(三):真机demo运行 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> welcome </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前期回顾："><span class="toc-text">前期回顾：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#证书问题"><span class="toc-text">证书问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appium中wda真机配置"><span class="toc-text">Appium中wda真机配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#py脚本"><span class="toc-text">py脚本</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> welcome </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        基于Appium+WDA+Python搭建IOS自动化测试全纪录(三):真机demo运行
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-01-10 22:24:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Appium环境搭建" title="Appium环境搭建">Appium环境搭建</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="前期回顾："><a href="#前期回顾：" class="headerlink" title="前期回顾："></a>前期回顾：</h4><p><a href="2018/01/10/201801102040/">基于Appium+WDA+Python搭建IOS自动化测试全纪录(一):环境搭建</a></p>
+<p><a href="2018/01/10/201801102318/">基于Appium+WDA+Python搭建IOS自动化测试全纪录(二):模拟器demo运行</a></p>
+<p>在模拟器将demo跑通之后，就要在真机上测试啦，模拟器总是要为真机服务的。</p>
+<h4 id="证书问题"><a href="#证书问题" class="headerlink" title="证书问题"></a>证书问题</h4><p>在真机上主要是涉及到签名及证书的问题详解见如下blog<br><a href="http://blog.cnbang.net/tech/3386/" target="_blank" rel="noopener">iOS App 签名的原理</a></p>
+<p>主要在此简单记录一下证书的配置吧。</p>
+<p>在xcode中找到build Setting配置部分（之所以把这张图放出来是因为我最开始找不到这个配置，萌新啥都找不到）：<br><img src="http://upload-images.jianshu.io/upload_images/1094385-1ad7fd8414daedc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20180115-203847@2x.png"></p>
+<p>更改一下三个字段对应的内容：<br> Code Siging identify  证书里面对应的开发者<br>Product Bundle Identify  对应的bundleID<br>Provisioning Profile    包含了 证书 / Entitlements 等数据，并由苹果后台私钥签名的数据包。<br>数据包是.mobileprovision文件格式结尾  在终端中输入如下命令即可看到里面的信息</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">security cms -D -<span class="selector-tag">i</span> xxxxx.mobileprovision</span><br></pre></td></tr></table></figure>
+<p>改完之后 我们开发的程度就可以装到真机上啦，这个时候选择在真机上运行，就可以啦。</p>
+<h4 id="Appium中wda真机配置"><a href="#Appium中wda真机配置" class="headerlink" title="Appium中wda真机配置"></a>Appium中wda真机配置</h4><p>测试app装到真机上之后，还要考虑如何开启py脚本，在真机上进行测试。<br>这里需要注意两点：</p>
+<ul>
+<li>webDriverAgent的配置</li>
+<li>py脚本的配置有变化</li>
+</ul>
+<p>关于WebDriverAgent<a href="https://github.com/facebook/WebDriverAgent" target="_blank" rel="noopener">github地址</a>这个还没了解太多，所以在这里先不介绍了。简单来说appium的服务中带有webDriverAgent，在模拟器上我们开启appium服务，会发现模拟机上会同步装上WebRriverAgentRunner的app，这个是appium能在ios上测试的关键条件，但是在真机上，却不能直接装上。<br><strong>因为需要证书啊！！！</strong></p>
+<p>不能直接从github上下载进行证书配置，要改appium中node_modules中的webDriverAgent。</p>
+<p>先找到appium的位置<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find</span> <span class="regexp">/ -name appium   /</span><span class="regexp">/ /u</span>sr<span class="regexp">/local/</span>lib<span class="regexp">/node_modules/</span>appium</span><br></pre></td></tr></table></figure></p>
+<p>最后找到的地址大概如下：<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">node_modules</span>/<span class="title">appium</span>/<span class="title">node_modules</span>/<span class="title">appium</span>-<span class="title">xcuitest</span>-<span class="title">driver</span>/<span class="title">WebDriverAgent</span></span></span><br></pre></td></tr></table></figure></p>
+<p>放到xcode中进行签名证书配置，注意虽然我们打开的是WebDriverAgent文件夹，但是我们要配置的是WebdDriverAgentRunner  在其Build Settings中进行与证书有关的配置<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Code Siging identify  证书里面对应的开发者</span><br><span class="line">Product Bundle Identify  对应的bundleID</span><br><span class="line">Provisioning<span class="built_in"> Profile </span>   包含了 证书 / Entitlements 等数据，并由苹果后台私钥签名的数据包。</span><br></pre></td></tr></table></figure></p>
+<p>配置完毕后还需要再WebdDriverAgentRunner中添加一个RoutingHTTPServer.frameork<br><img src="http://upload-images.jianshu.io/upload_images/1094385-8559492188f853ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20180115-222415@2x.png"><br>点击添加之后-&gt;add Other<br>在如下路径可以查找到该framework<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">node_modules</span>/<span class="title">appium</span>/<span class="title">node_modules</span>/<span class="title">appium</span>-<span class="title">xcuitest</span>-<span class="title">driver</span>/<span class="title">WebDriverAgent</span>/<span class="title">Carthage</span>/<span class="title">Build</span>/<span class="title">iOS</span></span></span><br></pre></td></tr></table></figure></p>
+<p>找的一定是appium文件路径下的！上边关于wda并没有做过多说明，因为还不怎么了解~等了解了再补充相关知识~</p>
+<h4 id="py脚本"><a href="#py脚本" class="headerlink" title="py脚本"></a>py脚本</h4><p>py脚本主要是配置有更改，主体文件请见开头（二）模拟器demod的blog<br>在真机上配置更改如下：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">desired_capabilities=&#123;</span><br><span class="line">               <span class="string">'bundleId'</span>: <span class="comment">//这个是和证书有关联的</span></span><br><span class="line">               <span class="string">'platformName'</span>: <span class="string">'iOS'</span>,</span><br><span class="line">               <span class="string">'platformVersion'</span>: <span class="string">'9.3.2'</span>,</span><br><span class="line">               <span class="string">'deviceName'</span>: <span class="string">'iPhone5 slave15'</span>,</span><br><span class="line">               <span class="string">'automationName'</span>:<span class="string">'XCUITest'</span>,</span><br><span class="line">               <span class="string">"clearSystemFiles"</span> : <span class="literal">True</span>,</span><br><span class="line">               <span class="string">'udid'</span>:<span class="comment">//模拟器的时候我们用uuid，但是真机上请用udid</span></span><br><span class="line">           &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>然后启动appium 发现真机上装上了厕所app 装上了WebDriverAgentRunner   然后用python运行脚本就ok拉！</p>
+<p>以上为从搭建环境-》模拟器跑demo-》真机跑demo的简单记录，不涉及到原理方面的讲解，如有错误之处还请提出。</p>
+<p>[Tbc]</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/gitment.js"></script>
+<script>
+    // var x = location.href
+    // console.log(x)
+    var gitment = new Gitment({
+        id: '',
+        owner: 'a67c',
+        repo: 'a67c_cmt',
+        oauth: {
+            client_id: '5f30ddfa7cc1a3ed7e3a',
+            client_secret: 'a2fb0816fa4ac0af72397c0e6222df36d2c053d6',
+        },
+    })
+    gitment.render('comment-container')
+</script>
+
+</html>

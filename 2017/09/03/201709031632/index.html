@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/bing.jpeg">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?365f8ba6d7b144150d8c71be001446ec";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+        
+    <title>
+        
+        Python爬取B站弹幕+R语言分词安装调试报错记录 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> welcome </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python部分"><span class="toc-text">python部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python安装过程中出现了当前程序已停止安装"><span class="toc-text">python安装过程中出现了当前程序已停止安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scrapy安装过程中报错Microsoft-Visual-C-14-0-is-required"><span class="toc-text">scrapy安装过程中报错Microsoft Visual C++ 14.0 is required.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scrapy启动demo过程中报ModuleNotFoundError-No-module-named-39-win32api-39"><span class="toc-text">scrapy启动demo过程中报ModuleNotFoundError: No module named &#39;win32api&#39;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装win32的时候报错如下"><span class="toc-text">安装win32的时候报错如下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#R语言部分"><span class="toc-text">R语言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读取文件报错"><span class="toc-text">读取文件报错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用wordcloud2函数时报错"><span class="toc-text">调用wordcloud2函数时报错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#R语言的插件安装的意外顺利，就是360总是要阻止行为"><span class="toc-text">R语言的插件安装的意外顺利，就是360总是要阻止行为</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> welcome </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Python爬取B站弹幕+R语言分词安装调试报错记录
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-09-03 16:32:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Python" title="Python">Python</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>环境说明：<br>windows8.1 x64+python3.6+scrapy1.4<br>window8.1 x64+R3.4.2+jiebaR插件+rJson插件+RStudio编辑器+wordcloud2插件</strong></p>
+<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>以下所有问题答案均来源网络，在此整理并做记录。本文记录源于<a href="2017/09/03/201709031514/">萌新学习Python爬取B站弹幕+R语言分词demo说明</a><br>建议结合食用，风味更佳</p>
+<h3 id="python部分"><a href="#python部分" class="headerlink" title="python部分"></a>python部分</h3><h4 id="python安装过程中出现了当前程序已停止安装"><a href="#python安装过程中出现了当前程序已停止安装" class="headerlink" title="python安装过程中出现了当前程序已停止安装"></a>python安装过程中出现了当前程序已停止安装</h4><p>这个忘记截图了，就是在安装exe的过程中出现报错，安装成功后无法打开。后来查找到原因据说是进入python官网直接下的windows版本是32位的，当我找到64位时下载再安装就正常了。</p>
+<h4 id="scrapy安装过程中报错Microsoft-Visual-C-14-0-is-required"><a href="#scrapy安装过程中报错Microsoft-Visual-C-14-0-is-required" class="headerlink" title="scrapy安装过程中报错Microsoft Visual C++ 14.0 is required."></a>scrapy安装过程中报错<code>Microsoft Visual C++ 14.0 is required.</code></h4><p>scrapy安装过程中报错如下：<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">building 'twisted.test.raiser' extension</span><br><span class="line"><span class="keyword">error: </span>Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": http://landinghub.visualstudio.com/visual-cpp-build-tools</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-167a042f16403743.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>解决方式</strong><br><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted" target="_blank" rel="noopener">http://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted</a><br>下载<strong><em>twisted</em></strong>对应版本的whl文件（如我的<code>Twisted‑17.5.0‑cp36‑cp36m‑win_amd64.wh</code>l，cp后面是python版本，amd64代表64位，运行命令：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">install</span> <span class="selector-tag">E</span>:\<span class="selector-tag">Twisted-17</span><span class="selector-class">.5</span><span class="selector-class">.0-cp36-cp36m-win_amd64</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
+<p>然后再次执行<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> Scrapy</span><br></pre></td></tr></table></figure></p>
+<h4 id="scrapy启动demo过程中报ModuleNotFoundError-No-module-named-39-win32api-39"><a href="#scrapy启动demo过程中报ModuleNotFoundError-No-module-named-39-win32api-39" class="headerlink" title="scrapy启动demo过程中报ModuleNotFoundError: No module named &#39;win32api&#39;"></a>scrapy启动demo过程中报<code>ModuleNotFoundError: No module named &#39;win32api&#39;</code></h4><p><a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/" target="_blank" rel="noopener">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/</a><br>去这个网站下载对应的win32的软件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-e4dd1fbbe58ecbf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="安装win32的时候报错如下"><a href="#安装win32的时候报错如下" class="headerlink" title="安装win32的时候报错如下"></a>安装win32的时候报错如下</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python <span class="built_in">version</span> <span class="number">3.6</span> required, which was <span class="keyword">not</span> found <span class="keyword">in</span> <span class="keyword">the</span> registry</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-8b4a64231b55d8a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>这个网上说是没有注册的问题，在网上找了一段代码<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import print_function</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">import sys</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    from winreg import *</span><br><span class="line">except ImportError:</span><br><span class="line">    from _winreg import *</span><br><span class="line"> </span><br><span class="line"># tweak <span class="keyword">as</span> necessary</span><br><span class="line"><span class="keyword">version</span> = sys.<span class="keyword">version</span>[:<span class="number">3</span>]</span><br><span class="line">installpath = sys.prefix</span><br><span class="line"> </span><br><span class="line">regpath = <span class="string">"SOFTWARE\\Python\\Pythoncore\\&#123;0&#125;\\"</span>.format(<span class="keyword">version</span>)</span><br><span class="line">installkey = <span class="string">"InstallPath"</span></span><br><span class="line">pythonkey = <span class="string">"PythonPath"</span></span><br><span class="line">pythonpath = <span class="string">"&#123;0&#125;;&#123;1&#125;\\Lib\\;&#123;2&#125;\\DLLs\\"</span>.format(</span><br><span class="line">    installpath, installpath, installpath)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">def RegisterPy():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">reg</span> = OpenKey(HKEY_CURRENT_USER, regpath)</span><br><span class="line">    except EnvironmentError <span class="keyword">as</span> <span class="keyword">e</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">reg</span> = CreateKey(HKEY_CURRENT_USER, regpath)</span><br><span class="line">            SetValue(<span class="keyword">reg</span>, installkey, REG_SZ, installpath)</span><br><span class="line">            SetValue(<span class="keyword">reg</span>, pythonkey, REG_SZ, pythonpath)</span><br><span class="line">            CloseKey(<span class="keyword">reg</span>)</span><br><span class="line">        excep<span class="variable">t:</span></span><br><span class="line">            <span class="keyword">print</span>(<span class="string">"*** Unable to register!"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span>(<span class="string">"--- Python"</span>, <span class="keyword">version</span>, <span class="string">"is now registered!"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (QueryValue(<span class="keyword">reg</span>, installkey) == installpath <span class="built_in">and</span></span><br><span class="line">        QueryValue(<span class="keyword">reg</span>, pythonkey) == pythonpath):</span><br><span class="line">        CloseKey(<span class="keyword">reg</span>)</span><br><span class="line">        <span class="keyword">print</span>(<span class="string">"=== Python"</span>, <span class="keyword">version</span>, <span class="string">"is already registered!"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    CloseKey(<span class="keyword">reg</span>)</span><br><span class="line">    <span class="keyword">print</span>(<span class="string">"*** Unable to register!"</span>)</span><br><span class="line">    <span class="keyword">print</span>(<span class="string">"*** You probably have another Python installation!"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    RegisterPy()</span><br></pre></td></tr></table></figure></p>
+<p>将代码保存成<code>register.py</code>，在该文件夹下执行<br> <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> register.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1094385-86762400ebebee39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>问题解决</p>
+<h3 id="R语言部分"><a href="#R语言部分" class="headerlink" title="R语言部分"></a>R语言部分</h3><h4 id="读取文件报错"><a href="#读取文件报错" class="headerlink" title="读取文件报错"></a>读取文件报错</h4><figure class="highlight plain"><figcaption><span>addition: Warning message:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In read.table(&quot;E:/danmu/2.txt&quot;, header = FALSE, ) :</span><br><span class="line">incomplete final line found by readTableHeader on &apos;E:/danmu/2.txt&apos;</span><br></pre></td></tr></table></figure>
+<p>当时的txt文件时我自己写入的，问题可能出在文件的结尾没有空格上，我在文件的结尾加了空格就可以正常使用了（如果空格也不行，试试回车）</p>
+<h4 id="调用wordcloud2函数时报错"><a href="#调用wordcloud2函数时报错" class="headerlink" title="调用wordcloud2函数时报错"></a>调用wordcloud2函数时报错</h4><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error </span>in `[.data.frame`(data, , 1:2) : undefined columns selected</span><br></pre></td></tr></table></figure>
+<p>这个问题我后来也没有解决，这个问题的上下文是<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">keys</span> = worker(<span class="string">"keywords"</span>,<span class="attr">topn=150)</span></span><br><span class="line"> <span class="attr">re</span> = vector_keywords(segment,keys)</span><br><span class="line"> wordcloud2(re, <span class="attr">size</span> = <span class="number">2</span>, <span class="attr">minRotation</span> = -pi/<span class="number">2</span>, <span class="attr">maxRotation</span> = -pi/<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>我这边猜测是jiebaR的<code>vector_keywords</code>函数返回的是向量，且输出的结果没有词频，当我把<code>freq(segment)</code>的结果传给<code>wordcloud</code>时就可以正常执行，此时<code>freq(segment)</code>的结果输出类型为<code>data.frame</code>，猜测如下：</p>
+<ol>
+<li>wordcloud接受的参数类型为data.frame 且需要有词频</li>
+<li>wordcloud接受的参数类型不一定为data.frame 但一定需要有词频<br>词频是一定需要的，但是参数类型不确定，就因为<code>vector_keywords</code>的结果不知道怎么分出词频，才采用了<code>freq()</code>函数绘制词云。<br><img src="http://upload-images.jianshu.io/upload_images/1094385-2097f82d76c53959.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ截图20170903134316.png"></li>
+</ol>
+<p>跪求大佬指导如何用关键词绘制词云啊，我真的不知道这个生成的关键词怎么把词频和词分开！而且为什么把<code>vector_keywords</code>的结果转换成<code>list</code>类型或者<code>data.frame</code>类型词频就消失了呢！输出的.csv文件里还是没有词频啊！</p>
+<h4 id="R语言的插件安装的意外顺利，就是360总是要阻止行为"><a href="#R语言的插件安装的意外顺利，就是360总是要阻止行为" class="headerlink" title="R语言的插件安装的意外顺利，就是360总是要阻止行为"></a>R语言的插件安装的意外顺利，就是360总是要阻止行为</h4><p>the end.</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/gitment.js"></script>
+<script>
+    // var x = location.href
+    // console.log(x)
+    var gitment = new Gitment({
+        id: '',
+        owner: 'a67c',
+        repo: 'a67c_cmt',
+        oauth: {
+            client_id: '5f30ddfa7cc1a3ed7e3a',
+            client_secret: 'a2fb0816fa4ac0af72397c0e6222df36d2c053d6',
+        },
+    })
+    gitment.render('comment-container')
+</script>
+
+</html>
