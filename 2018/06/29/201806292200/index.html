@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进击的程序茗">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/bing.jpeg">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?365f8ba6d7b144150d8c71be001446ec";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+        
+    <title>
+        
+        Macaca-NoSmoke遍历调研过程记录 - 进击的程序茗
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> welcome to cming.site </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/bing.jpeg" />
+        </div>
+        <div class="name">
+            <i>进击的程序茗</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>留言板</span>
+                </a>
+            </li>
+            <!-- 
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>nav.search</span>
+                </a>
+            </li>
+             -->
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#背景介绍"><span class="toc-text">背景介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境介绍"><span class="toc-text">环境介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke启动流程"><span class="toc-text">NoSmoke启动流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke结果页展示"><span class="toc-text">NoSmoke结果页展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke遍历流程"><span class="toc-text">NoSmoke遍历流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke-Digest介绍"><span class="toc-text">NoSmoke-Digest介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke-Action介绍"><span class="toc-text">NoSmoke-Action介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Action具体生成"><span class="toc-text">Action具体生成</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#页面元素点击"><span class="toc-text">页面元素点击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#循环结束"><span class="toc-text">循环结束</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#页面深度设定规则"><span class="toc-text">页面深度设定规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NoSmoke官方爬行原理图"><span class="toc-text">NoSmoke官方爬行原理图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#个人总结"><span class="toc-text">个人总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search.search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> welcome to cming.site </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Macaca-NoSmoke遍历调研过程记录
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-29 22:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Appium" title="Appium">Appium</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>本文主要介绍对于NoSmoke遍历Android App使用过程中的一些记录，通过源码打断点的方式及查看截图效果简单确定一些NoSmoke的内部机制，其中若有理解错误或不当之处还请多多指教。本文未多介绍环境搭建，环境搭建有需要再补。</p>
+<h4 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h4><p>Macaca+NoSmoke+Android手机+Mac10.13.1</p>
+<p>主要参考文档：</p>
+<p><a href="https://macacajs.github.io/zh/environment-setup" target="_blank" rel="noopener">Macaca NoSmoke官方文档</a></p>
+<p><a href="https://testerhome.com/topics/10075" target="_blank" rel="noopener">Macaca 自动遍历器 NoSmoke 发布公测</a></p>
+<p><a href="https://testerhome.com/topics/11482" target="_blank" rel="noopener">基于 macaca 的遍历 NoSmoke</a></p>
+<h4 id="NoSmoke启动流程"><a href="#NoSmoke启动流程" class="headerlink" title="NoSmoke启动流程"></a>NoSmoke启动流程</h4><p>NoSmoke其实是提供了一套遍历流程，Macaca作为服务端，NoSmoke作为客户端 去对手机进行一个遍历操作。</p>
+<p>主要分以下步骤：</p>
+<ul>
+<li>开启Macaca服务端</li>
+<li>更改NoSmoke配置</li>
+<li>启动NoSmoke客户端</li>
+<li>页面实时查看效果</li>
+</ul>
+<h4 id="NoSmoke结果页展示"><a href="#NoSmoke结果页展示" class="headerlink" title="NoSmoke结果页展示"></a>NoSmoke结果页展示</h4><p>首先来简单介绍一下NoSmoke的遍历结果页面，在图上简单的进行了一下标注，对于标注相关说明会在下面详细介绍</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-ba56e6220a89b3e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NoSmoke结果页面.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-81d803037f508319.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Digest对应的Actions列举"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-363a1eadb94121ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NoSmoke图片简排页面"></p>
+<h4 id="NoSmoke遍历流程"><a href="#NoSmoke遍历流程" class="headerlink" title="NoSmoke遍历流程"></a>NoSmoke遍历流程</h4><p>NoSmoke在遍历过程中核心步骤主要如下：</p>
+<ul>
+<li>确定页面Digest</li>
+<li>确定页面的Action集合</li>
+<li>确定页面的点击操作</li>
+<li>循环该过程直至遍历结束<br>我们先简单的说明一下这4个步骤。</li>
+</ul>
+<h4 id="NoSmoke-Digest介绍"><a href="#NoSmoke-Digest介绍" class="headerlink" title="NoSmoke-Digest介绍"></a>NoSmoke-Digest介绍</h4><p>在上面的效果图中提到了Digest，Digest就相当于一个页面的唯一标识，即在自动化遍历页面时如何确定两个页面时相同的控件结构。</p>
+<p>在NoSmoke的代码中<code>NoSmoke/lib/crawler/models.js</code>函数<code>NSAppCrawlingTreeNode.prototype.checkDigest</code>里提供了判断Digest的方法，核心代码如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.digest = <span class="string">''</span> + (<span class="keyword">source</span>.value.match(<span class="regexp">/node/g</span>) || []).length +</span><br><span class="line">            (<span class="keyword">source</span>.value.match(<span class="regexp">/Android/g</span>) || []).length +</span><br><span class="line">            (<span class="keyword">source</span>.value.match(<span class="regexp">/TextView/g</span>) || []).length +</span><br><span class="line">            (<span class="keyword">source</span>.value.match(<span class="regexp">/EditText/g</span>) || []).length +</span><br><span class="line">            (<span class="keyword">source</span>.value.match(<span class="regexp">/Layout/g</span>) || []).length +</span><br><span class="line">            (<span class="keyword">source</span>.value.match(<span class="regexp">/Button/g</span>) || []).length;</span><br></pre></td></tr></table></figure>
+<p>从代码中可以看到每个页面根据Macaca返回的控件树的value值，匹配一定节点，拼接而成的Digest。因此我们看到的Digest是一串数字。图片上的View值就是唯一ID。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-2c9af28aa975af67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Digest"></p>
+<p>对于这个Digest，从页面效果来看它的区分程度准确率并不是特别的好，上面的图和下面的图区分来看是一样的页面，但是它们的Digest是不一样的。图片没有截全，下面的Digest是<code>520120411</code>,上面的图图像上标识是<code>520120421</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-412dc5d13e7cfb1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Digest"></p>
+<p>个人认为页面唯一ID的确定本身就是一个有无数种选择的问题，可以说未必能有一种唯一的算法可以确定出所有APP的页面ID，因此NoSmoke也提供了hook，用户可以自己编写自己所确定页面ID的代码。</p>
+<h4 id="NoSmoke-Action介绍"><a href="#NoSmoke-Action介绍" class="headerlink" title="NoSmoke-Action介绍"></a>NoSmoke-Action介绍</h4><p>当我们确定好这个页面的唯一ID时，页面中我们要去点击哪些控件呢？这就是Action集合所做的事情。</p>
+<p>每一次请求页面Source时，都会返回页面的节点层级，在NoSmoke中通过不断的查询子节点，确定了每一个控件的执行路径。此处详细代码在<code>NoSmoke/lib/crawler/crawler.js</code>文件中的<code>NSCrawler.prototype.recursiveFilter</code>函数中 以下仅截取部分代码：主要是如果当前节点有子节点，进行递归循环，并生产<code>Xpath</code>路径</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 1. filter Current Node Information */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">source</span>.hasOwnProperty(<span class="string">'children'</span>)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (Array.isArray(<span class="keyword">source</span>.children)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (let i = <span class="number">0</span>; i &lt; <span class="keyword">source</span>.children.length; i++) &#123;</span><br><span class="line">      <span class="keyword">this</span>.eraseModelDifference(<span class="keyword">source</span>.children);</span><br><span class="line">      <span class="keyword">this</span>.insertXPath(<span class="keyword">source</span>, <span class="keyword">source</span>.children[i]);</span><br><span class="line">      let result = <span class="keyword">this</span>.recursiveFilter(<span class="keyword">source</span>.children[i], matches, exclusive);</span><br><span class="line">      sourceArray = sourceArray.concat(result);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.eraseModelDifference(<span class="keyword">source</span>.children);</span><br><span class="line">    <span class="keyword">this</span>.insertXPath(<span class="keyword">source</span>, <span class="keyword">source</span>.children);</span><br><span class="line">    let result = <span class="keyword">this</span>.recursiveFilter(<span class="keyword">source</span>.children, matches, exclusive);</span><br><span class="line">    sourceArray = sourceArray.concat(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生产的路径如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-9c3a53c71cec3b42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面Digest及对应Action路径"></p>
+<p><strong>此处重点概括一下就是：</strong></p>
+<ul>
+<li>一个Digest会生产多个Action，这些Action集合为Actions</li>
+<li>NoSmoke源码中设定Actions生产的最大数量为16</li>
+<li>遍历路径达到的Action/所有Digest生产的Action为页面展示的百分比</li>
+</ul>
+<h5 id="Action具体生成"><a href="#Action具体生成" class="headerlink" title="Action具体生成"></a>Action具体生成</h5><p><img src="https://upload-images.jianshu.io/upload_images/1094385-0f21f2820137a003.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面控件层级"></p>
+<p>上图是页面的控件层级图。我们如果转化成模块简单化路径按下图层级为：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">a</span>-b-<span class="comment">d//这个结果是通过生产的Action和页面的层级路径相比对整理出来的，如有错误还请指出</span></span><br><span class="line"><span class="keyword">a</span>-b-e</span><br><span class="line"><span class="keyword">a</span>-f</span><br><span class="line"><span class="keyword">a</span>-g</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-04eeb0b593b73576.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="灵魂画图"></p>
+<p>上图里的c和h路径并没有被录入，用户可以匹配某种控件类型被过滤，如果父元素为被过滤的类型，那么子元素同样不会被选择。</p>
+<h4 id="页面元素点击"><a href="#页面元素点击" class="headerlink" title="页面元素点击"></a>页面元素点击</h4><p>页面元素点击在<code>performAction</code>函数里，这里的逻辑就比较简单,主要是对于当前即将点击的元素进行类型判断<code>clickTypes</code>,<code>horizontalScrollTypes</code>,<code>editTypes</code>这三种分别为点击、滑动、输入三种类型，那么我们怎么知道过来的一个元素应该点击滑动还是输入呢？</p>
+<p><strong>yml文件配置</strong><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">horizontalScrollTypes:</span><br><span class="line">  -<span class="ruby"> <span class="string">'android.widget.ImageView'</span></span></span><br><span class="line"><span class="ruby">  - <span class="string">'android.widget.TextView'</span></span></span><br><span class="line"><span class="ruby">  - <span class="string">'android.widget.Button'</span></span></span><br><span class="line"><span class="ruby"><span class="symbol">clickTypes:</span></span></span><br><span class="line"><span class="ruby">  - <span class="string">'android.widget.Button'</span></span></span><br><span class="line"><span class="ruby">  - <span class="string">'android.widget.TextView'</span></span></span><br><span class="line"><span class="ruby"><span class="symbol">editTypes:</span></span></span><br><span class="line"><span class="ruby">  - <span class="string">'android.widget.EditText'</span></span></span><br></pre></td></tr></table></figure></p>
+<p>当前的元素是图片类型，它被设定为滑动类型，那么久会被滑动，当前图片是按钮，它既可以滑动也可以点击，按照下面代码中的if else逻辑会对其进行点击操作.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.config.clickTypes.indexOf(action.source.type) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">/** 1. handle click actions */</span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            root.wdclient.send(<span class="string">'/wd/hub/session/'</span> + <span class="keyword">this</span>.sessionId + <span class="string">'/element/'</span> + action.data.value.ELEMENT + <span class="string">'/click'</span>, <span class="string">'post'</span>, &#123;&#125;, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">this</span>.refreshScreen();</span><br><span class="line">              resolve();</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.config.horizontalScrollTypes.indexOf(action.source.type) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">/** 2. handle horizontal scroll actions */</span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            root.wdclient.send(<span class="string">'/wd/hub/session/'</span> + <span class="keyword">this</span>.sessionId + <span class="string">'/actions'</span>, <span class="string">'post'</span>, &#123;<span class="string">'actions'</span>: [&#123;<span class="string">'type'</span>: <span class="string">'drag'</span>, <span class="string">'fromX'</span>: <span class="number">600</span>, <span class="string">'fromY'</span>: <span class="number">200</span>, <span class="string">'toX'</span>: <span class="number">10</span>, <span class="string">'toY'</span>: <span class="number">200</span>, <span class="string">'duration'</span>: <span class="number">2</span>&#125;]&#125;,<span class="comment">//这里滑动的坐标被我更改了</span></span><br><span class="line">              () =&gt; &#123;</span><br><span class="line">                <span class="keyword">this</span>.refreshScreen();</span><br><span class="line">                resolve();</span><br><span class="line">              &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.config.editTypes.indexOf(action.source.type) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">/** 3. handle edit actions */</span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            root.wdclient</span><br><span class="line">              .send(<span class="string">'/wd/hub/session/'</span> + <span class="keyword">this</span>.sessionId + <span class="string">'/element/'</span> + action.data.value.ELEMENT + <span class="string">'/value'</span>, <span class="string">'post'</span>, &#123;</span><br><span class="line">                <span class="string">'value'</span>: [action.input]</span><br><span class="line">              &#125;, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.refreshScreen();</span><br><span class="line">                resolve();</span><br><span class="line">              &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="循环结束"><a href="#循环结束" class="headerlink" title="循环结束"></a>循环结束</h4><p>整个页面的遍历会在什么时候循环结束呢？</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Terminate under the following cases:</span></span><br><span class="line">  <span class="comment">// 1. the previous node has been finished for continuously count of 8, assume crawling finish</span></span><br><span class="line">  <span class="comment">// 2. the crawling process takes too long and hence expire</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.repeatingCrawlingCount &gt;= maxRepeatCrawlingCount || <span class="keyword">this</span>.crawlingExpires) &#123;</span><br><span class="line">    <span class="keyword">this</span>.terminate(<span class="string">'terminate due to timeout'</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>maxRepeatCrawlingCount 爬行的最大层数  默认为8</li>
+<li>repeatingCrawlingCount  当前爬行的层数 </li>
+<li>crawlingExpires   配置的时间 默认30min</li>
+</ul>
+<h5 id="页面深度设定规则"><a href="#页面深度设定规则" class="headerlink" title="页面深度设定规则"></a>页面深度设定规则</h5><ul>
+<li>该页面为新的页面 repeatingCrawlingCount = 0</li>
+<li>这个页面action全部被浏览完毕 且这个页面的父节点类型不是需要被过滤的repeatingCrawlingCount++  这是根据代码里的逻辑得出的这样一个结论，没有进行具体验证。</li>
+</ul>
+<h4 id="NoSmoke官方爬行原理图"><a href="#NoSmoke官方爬行原理图" class="headerlink" title="NoSmoke官方爬行原理图"></a>NoSmoke官方爬行原理图</h4><p>以上是我在通过打断点和页面效果观察过程中的一点记录，下面是官方公布的原理图，在上面做了小标志。官方高清大图请走链接</p>
+<p><a href="https://testerhome.com/topics/10075" target="_blank" rel="noopener">Macaca 自动遍历器 NoSmoke 发布公测</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1094385-f2de739099c55048.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="从PPT上直接截取下来了"></p>
+<h4 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h4><p>以上就是在NoSmoke调研过程中的一点个人记录，主要从四个方面结合源码和执行效果进行了简单分析，如有错误或者疏漏之处还请指出。</p>
+<p>NoSmoke本身提供了很强的hook配置，及用户可以自己定义一系列的Action，最后的页面展示页特别赞，本次调研未调研iOS相关，因为WDA好像……又出问题了……</p>
+<p>马上就7月份了，这篇就作为上半年的blog收尾，即将到来的7月份~你好啊~</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <!-- <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span> -->
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.xml"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '201806292200',
+        owner: 'a67c',
+        repo: 'a67c_cmt',
+        oauth: {
+            client_id: '5f30ddfa7cc1a3ed7e3a',
+            client_secret: 'a2fb0816fa4ac0af72397c0e6222df36d2c053d6',
+        },
+    })
+    gitment.render('comment-container')
+</script>
+
+</html>
